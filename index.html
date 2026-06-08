@@ -491,16 +491,209 @@
         #lb-next { right: 1rem; }
         #lb-prev:hover, #lb-next:hover { color: var(--amber); }
 
+        /* ── VIEW SWITCHER DROPDOWN ─────────────────── */
+        .view-switcher { position: relative; }
+        .view-btn {
+            display: flex; align-items: center; gap: .5rem;
+            padding: 5px 11px; cursor: pointer;
+            background: var(--card); border: 1px solid var(--border2);
+            color: var(--t2); font-family: 'Share Tech Mono', monospace;
+            font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+            transition: border-color .2s, color .2s, box-shadow .2s;
+            white-space: nowrap;
+        }
+        .view-btn:hover, .view-switcher.open .view-btn {
+            border-color: var(--amber30); color: var(--amber);
+            box-shadow: 0 0 10px var(--amber10);
+        }
+        .view-chevron { transition: transform .25s; font-size: .55rem; }
+        .view-switcher.open .view-chevron { transform: rotate(180deg); }
+        .view-menu {
+            display: none; position: absolute; top: calc(100% + 8px); right: 0;
+            min-width: 220px;
+            background: var(--bg2); border: 1px solid var(--border2);
+            box-shadow: 0 8px 32px rgba(0,0,0,.7);
+            z-index: 9000;
+        }
+        .view-switcher.open .view-menu { display: block; }
+        .view-opt {
+            display: flex; align-items: center; gap: .9rem;
+            padding: .9rem 1.1rem; cursor: pointer;
+            border-bottom: 1px solid var(--border);
+            transition: background .18s;
+        }
+        .view-opt:last-child { border-bottom: none; }
+        .view-opt:hover { background: var(--card); }
+        .view-opt.active { background: var(--amber10); }
+        .view-opt-icon { font-size: 1.2rem; flex-shrink: 0; }
+        .view-opt-name {
+            font-family: 'Rajdhani', sans-serif; font-weight: 700;
+            font-size: .9rem; letter-spacing: .05em; color: var(--t1);
+        }
+        .view-opt-desc { font-size: .73rem; color: var(--t3); margin-top: .1rem; }
+
+        /* ── VIEW VISIBILITY ─────────────────────────── */
+        body[data-view="quick"] #hero,
+        body[data-view="quick"] #about,
+        body[data-view="quick"] #credentials,
+        body[data-view="quick"] #experience,
+        body[data-view="quick"] #gallery,
+        body[data-view="quick"] #projects,
+        body[data-view="quick"] #vision,
+        body[data-view="quick"] #skills,
+        body[data-view="quick"] #contact,
+        body[data-view="quick"] footer { display: none !important; }
+        body[data-view="quick"] #recruiter-panel { display: block; }
+
+        body[data-view="full"] #recruiter-panel { display: none; }
+
+        /* ── RECRUITER PANEL ─────────────────────────── */
+        #recruiter-panel {
+            min-height: 100vh; padding-top: 58px;
+            background: var(--bg);
+            display: none;
+        }
+        .rp-wrap {
+            max-width: 1080px; margin: 0 auto;
+            padding: 2.5rem 2rem 3rem;
+            display: flex; flex-direction: column; gap: 2rem;
+        }
+
+        /* top bar */
+        .rp-topbar {
+            display: flex; justify-content: space-between;
+            align-items: flex-start; flex-wrap: wrap; gap: 1rem;
+        }
+        .rp-mode-tag {
+            display: inline-flex; align-items: center; gap: .4rem;
+            padding: .28rem .7rem;
+            background: var(--amber10); border: 1px solid var(--amber30);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: .62rem; letter-spacing: .15em; color: var(--amber);
+            text-transform: uppercase;
+        }
+        .rp-avail {
+            display: inline-flex; align-items: center; gap: .4rem;
+            padding: .28rem .7rem;
+            background: rgba(74,222,128,.08); border: 1px solid rgba(74,222,128,.3);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: .62rem; letter-spacing: .15em; color: var(--green);
+            text-transform: uppercase;
+        }
+        .rp-avail::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 6px var(--green); }
+
+        /* identity */
+        .rp-identity { border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
+        .rp-name {
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(3rem, 8vw, 6rem);
+            letter-spacing: .06em; line-height: .9;
+            color: var(--t1); margin-bottom: .6rem;
+        }
+        .rp-name span { color: var(--amber); }
+        .rp-title {
+            font-size: 1rem; font-weight: 600; letter-spacing: .12em;
+            text-transform: uppercase; color: var(--t2);
+        }
+        .rp-title em { color: var(--blue); font-style: normal; padding: 0 .4rem; }
+
+        /* stats bar */
+        .rp-stats {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 1px; background: var(--border);
+            border: 1px solid var(--border);
+        }
+        .rp-stat {
+            background: var(--card); padding: 1rem 1.2rem; text-align: center;
+        }
+        .rp-stat-n {
+            font-family: 'Bebas Neue', cursive; font-size: 2rem;
+            color: var(--amber); line-height: 1;
+        }
+        .rp-stat-l {
+            font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+            text-transform: uppercase; color: var(--t3); margin-top: .15rem;
+        }
+
+        /* two-col body */
+        .rp-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+        /* bio + contact */
+        .rp-bio-block { display: flex; flex-direction: column; gap: 1.2rem; }
+        .rp-bio {
+            font-size: 1rem; line-height: 1.8; color: var(--t2);
+            background: var(--card); border: 1px solid var(--border);
+            border-left: 3px solid var(--amber); padding: 1.2rem 1.4rem;
+        }
+        .rp-bio strong { color: var(--t1); }
+        .rp-contact-row {
+            display: flex; flex-direction: column; gap: .55rem;
+        }
+        .rp-contact-item {
+            display: flex; align-items: center; gap: .75rem;
+            padding: .7rem 1rem;
+            background: var(--card); border: 1px solid var(--border);
+            text-decoration: none; color: var(--t2);
+            font-size: .9rem; font-weight: 600; letter-spacing: .04em;
+            transition: border-color .2s, color .2s;
+        }
+        .rp-contact-item:hover { border-color: var(--amber30); color: var(--amber); }
+        .rp-contact-ico { font-size: 1rem; width: 1.2rem; text-align: center; }
+
+        /* credentials quick */
+        .rp-cred-block { display: flex; flex-direction: column; gap: .65rem; }
+        .rp-cred-row {
+            display: flex; align-items: center; gap: 1rem;
+            padding: .85rem 1.1rem;
+            background: var(--card); border: 1px solid var(--border);
+            transition: border-color .2s, box-shadow .2s;
+        }
+        .rp-cred-row:hover { border-color: var(--amber30); box-shadow: 0 0 14px var(--amber10); }
+        .rp-cred-row::before { content:''; width:3px; align-self:stretch; background:var(--amber); flex-shrink:0; }
+        .rp-cred-ico { font-size: 1.25rem; }
+        .rp-cred-name { font-weight: 700; font-size: .93rem; color: var(--t1); letter-spacing: .03em; }
+        .rp-cred-sub { font-size: .75rem; color: var(--t3); margin-top: .1rem; }
+        .rp-cred-badge { margin-left: auto; flex-shrink: 0; }
+
+        /* experience snapshot */
+        .rp-exp {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 1rem; border-top: 1px solid var(--border); padding-top: 1.5rem;
+        }
+        .rp-exp-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-top: 2px solid var(--amber); padding: 1.1rem;
+        }
+        .rp-exp-role { font-family: 'Bebas Neue', cursive; font-size: 1.1rem; letter-spacing: .04em; margin-bottom: .2rem; }
+        .rp-exp-org { font-size: .78rem; color: var(--amber); font-weight: 600; letter-spacing: .04em; margin-bottom: .5rem; }
+        .rp-exp-date { font-family: 'Share Tech Mono', monospace; font-size: .62rem; color: var(--t3); margin-bottom: .6rem; }
+        .rp-exp-note { font-size: .82rem; color: var(--t2); line-height: 1.55; }
+
+        /* bottom CTA */
+        .rp-cta {
+            display: flex; align-items: center; justify-content: center;
+            gap: 1rem; flex-wrap: wrap;
+            border-top: 1px solid var(--border); padding-top: 1.5rem;
+        }
+        .rp-cta-note {
+            font-family: 'Share Tech Mono', monospace; font-size: .65rem;
+            letter-spacing: .15em; color: var(--t3); text-transform: uppercase;
+            text-align: center; width: 100%; margin-bottom: .25rem;
+        }
+
         /* ── MOBILE ──────────────────────────────────── */
         @media(max-width:768px){
             .nav-links { display:none; }
             .about-grid, .vision-grid { grid-template-columns:1fr; }
             .stats { grid-template-columns:1fr 1fr; }
             .exp-head { flex-direction:column; }
+            .rp-stats { grid-template-columns:1fr 1fr; }
+            .rp-body { grid-template-columns:1fr; }
+            .rp-exp { grid-template-columns:1fr; }
         }
     </style>
 </head>
-<body>
+<body data-view="full">
 
 <!-- ╔══════════════════════════════════════╗ -->
 <!-- ║  NAV                                 ║ -->
@@ -516,6 +709,28 @@
         <li><a href="#vision">Vision</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
+    <div class="view-switcher" id="viewSwitcher">
+        <button class="view-btn" id="viewBtn">
+            <span id="viewLabel">📋 Full Profile</span>
+            <span class="view-chevron">▾</span>
+        </button>
+        <div class="view-menu" id="viewMenu">
+            <div class="view-opt" data-view="quick">
+                <span class="view-opt-icon">⚡</span>
+                <div>
+                    <div class="view-opt-name">Quick Look</div>
+                    <div class="view-opt-desc">30-second recruiter overview</div>
+                </div>
+            </div>
+            <div class="view-opt active" data-view="full">
+                <span class="view-opt-icon">📋</span>
+                <div>
+                    <div class="view-opt-name">Full Profile</div>
+                    <div class="view-opt-desc">Everything in depth</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <label class="pwr" id="pwrLabel" title="Toggle lights">
         <span class="pwr-label">Power</span>
         <input type="checkbox" id="lightsToggle">
@@ -523,6 +738,152 @@
         <div class="power-dot" id="pwrDot"></div>
     </label>
 </nav>
+
+<!-- ╔══════════════════════════════════════╗ -->
+<!-- ║  RECRUITER PANEL (Quick Look mode)   ║ -->
+<!-- ╚══════════════════════════════════════╝ -->
+<div id="recruiter-panel">
+    <div class="rp-wrap">
+
+        <!-- top bar -->
+        <div class="rp-topbar">
+            <span class="rp-mode-tag">⚡ Quick Look — Key Info Only</span>
+            <span class="rp-avail">Available for Work · Trinity, AL</span>
+        </div>
+
+        <!-- identity -->
+        <div class="rp-identity">
+            <h1 class="rp-name">Josiah <span>Dowdy</span></h1>
+            <p class="rp-title">
+                Journeyman Electrician
+                <em>|</em>
+                U.S. Coast Guard Veteran
+                <em>|</em>
+                Builder
+            </p>
+        </div>
+
+        <!-- stats bar -->
+        <div class="rp-stats">
+            <div class="rp-stat">
+                <div class="rp-stat-n">7,700</div>
+                <div class="rp-stat-l">Electrical Hours</div>
+            </div>
+            <div class="rp-stat">
+                <div class="rp-stat-n">96%</div>
+                <div class="rp-stat-l">License Complete</div>
+            </div>
+            <div class="rp-stat">
+                <div class="rp-stat-n">4 yrs</div>
+                <div class="rp-stat-l">USCG Service</div>
+            </div>
+            <div class="rp-stat">
+                <div class="rp-stat-n">4.0</div>
+                <div class="rp-stat-l">GPA · Summa Cum Laude</div>
+            </div>
+        </div>
+
+        <!-- two-col: bio+contact | credentials -->
+        <div class="rp-body">
+
+            <div class="rp-bio-block">
+                <div class="rp-bio">
+                    Near-licensed <strong>Alabama Journeyman Electrician</strong> (7,700 / 8,000 hrs) with
+                    hands-on commercial and residential experience in conduit systems, service panels,
+                    three-phase motors, and NEC-code-compliant installations.
+                    Prior career as a <strong>U.S. Coast Guard Electronics Technician</strong> —
+                    repaired the SPS-73 surface-search radar and maintained navigation systems on
+                    378-foot High Endurance Cutters. <strong>Secret clearance</strong> held.
+                    Honorable discharge, USCG Achievement Medal.
+                </div>
+                <div class="rp-contact-row">
+                    <a href="mailto:josiahdowdy@proton.me" class="rp-contact-item">
+                        <span class="rp-contact-ico">✉</span> josiahdowdy@proton.me
+                    </a>
+                    <a href="tel:6293218138" class="rp-contact-item">
+                        <span class="rp-contact-ico">☏</span> 629-321-8138
+                    </a>
+                    <a href="https://github.com/josiahdowdy" target="_blank" rel="noopener" class="rp-contact-item">
+                        <span class="rp-contact-ico">⌥</span> github.com/josiahdowdy
+                    </a>
+                </div>
+            </div>
+
+            <div class="rp-cred-block">
+                <div class="rp-cred-row">
+                    <span class="rp-cred-ico">⚡</span>
+                    <div>
+                        <div class="rp-cred-name">Alabama Journeyman Electrician</div>
+                        <div class="rp-cred-sub">7,700 / 8,000 hrs · NEC · Commercial &amp; Residential</div>
+                    </div>
+                    <span class="rp-cred-badge badge b-green">96%</span>
+                </div>
+                <div class="rp-cred-row">
+                    <span class="rp-cred-ico">🎖️</span>
+                    <div>
+                        <div class="rp-cred-name">USCG Achievement Medal</div>
+                        <div class="rp-cred-sub">Electronics maintenance &amp; technical operations</div>
+                    </div>
+                    <span class="rp-cred-badge badge b-amber">Earned</span>
+                </div>
+                <div class="rp-cred-row">
+                    <span class="rp-cred-ico">📡</span>
+                    <div>
+                        <div class="rp-cred-name">USCG Electronics Technician "A" School</div>
+                        <div class="rp-cred-sub">9-month intensive · Radar, Nav, Comms</div>
+                    </div>
+                    <span class="rp-cred-badge badge b-amber">2011</span>
+                </div>
+                <div class="rp-cred-row">
+                    <span class="rp-cred-ico">🎓</span>
+                    <div>
+                        <div class="rp-cred-name">B.A. Game Art &amp; Development</div>
+                        <div class="rp-cred-sub">SNHU · Summa Cum Laude</div>
+                    </div>
+                    <span class="rp-cred-badge badge b-amber">4.0</span>
+                </div>
+                <div class="rp-cred-row">
+                    <span class="rp-cred-ico">🔐</span>
+                    <div>
+                        <div class="rp-cred-name">Secret Security Clearance</div>
+                        <div class="rp-cred-sub">Held during active service · Honorable discharge E-4</div>
+                    </div>
+                    <span class="rp-cred-badge badge b-amber">Vet</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- experience snapshot -->
+        <div class="rp-exp">
+            <div class="rp-exp-card">
+                <div class="rp-exp-role">Electrical Apprentice</div>
+                <div class="rp-exp-org">Steven Horton Electrical</div>
+                <div class="rp-exp-date">2022 — Present</div>
+                <div class="rp-exp-note">Commercial &amp; residential installs, conduit, panels, 3-phase motors. LOTO-certified. Trained helpers on NEC code and safety.</div>
+            </div>
+            <div class="rp-exp-card">
+                <div class="rp-exp-role">Electronics Tech · ET3/E-4</div>
+                <div class="rp-exp-org">U.S. Coast Guard · Kodiak, AK</div>
+                <div class="rp-exp-date">2011 — 2015</div>
+                <div class="rp-exp-note">Repaired SPS-73 radar, maintained Seawatch nav on 378-ft cutters. Trained junior personnel. Achievement Medal, Secret clearance.</div>
+            </div>
+            <div class="rp-exp-card">
+                <div class="rp-exp-role">Pre-K Teacher</div>
+                <div class="rp-exp-org">Big Fish Academy</div>
+                <div class="rp-exp-date">Nov 2025 — Apr 2026</div>
+                <div class="rp-exp-note">Daily instruction, behavior management, parent communication. CTE Class B Teaching Certification in progress at Athens State, Summer 2026.</div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="rp-cta">
+            <p class="rp-cta-note">Want to see work photos, software projects, and the full story?</p>
+            <button class="btn btn-a" onclick="setView('full')">View Full Profile ↓</button>
+            <a href="mailto:josiahdowdy@proton.me" class="btn btn-b">Get In Touch</a>
+        </div>
+
+    </div>
+</div>
 
 <!-- ╔══════════════════════════════════════╗ -->
 <!-- ║  HERO                                ║ -->
@@ -983,6 +1344,30 @@
 </footer>
 
 <script>
+    // ── VIEW SWITCHER ─────────────────────────────────
+    const viewLabels = { quick: '⚡ Quick Look', full: '📋 Full Profile' };
+
+    function setView(v) {
+        document.body.setAttribute('data-view', v);
+        document.getElementById('viewLabel').textContent = viewLabels[v];
+        document.querySelectorAll('.view-opt').forEach(o => o.classList.toggle('active', o.dataset.view === v));
+        document.getElementById('viewSwitcher').classList.remove('open');
+        localStorage.setItem('jd-view', v);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const savedView = localStorage.getItem('jd-view') || 'full';
+    setView(savedView);
+
+    document.getElementById('viewBtn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.getElementById('viewSwitcher').classList.toggle('open');
+    });
+    document.addEventListener('click', () => document.getElementById('viewSwitcher').classList.remove('open'));
+    document.querySelectorAll('.view-opt').forEach(opt => {
+        opt.addEventListener('click', () => setView(opt.dataset.view));
+    });
+
     // ── LIGHTS TOGGLE ────────────────────────────────
     const toggle = document.getElementById('lightsToggle');
     toggle.addEventListener('change', () => {
